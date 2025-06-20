@@ -1,74 +1,72 @@
 # kickstart.nvim
 
-## Introduction
+## はじめに
 
-A starting point for Neovim that is:
+Neovimのスタートポイントとなる設定です：
 
-* Small
-* Single-file
-* Completely Documented
+* 軽量
+* 単一ファイル
+* 完全にドキュメント化済み
 
-**NOT** a Neovim distribution, but instead a starting point for your configuration.
+Neovimのディストリビューションでは**ありません**が、あなたの設定の出発点となります。
 
-## Installation
+## インストール
 
-### Install Neovim
+### Neovimのインストール
 
-Kickstart.nvim targets *only* the latest
-['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
-['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
-If you are experiencing issues, please make sure you have the latest versions.
+Kickstart.nvimは、Neovimの最新の
+['stable'](https://github.com/neovim/neovim/releases/tag/stable)版と最新の
+['nightly'](https://github.com/neovim/neovim/releases/tag/nightly)版のみをサポートしています。
+問題が発生した場合は、最新版を使用していることを確認してください。
 
-### Install External Dependencies
+### 外部依存関係のインストール
 
-External Requirements:
-- Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
+必要な外部ツール：
+- 基本ユーティリティ：`git`, `make`, `unzip`, Cコンパイラ (`gcc`)
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
-- Clipboard tool (xclip/xsel/win32yank or other depending on platform)
-- A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
-  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
-- Language Setup:
-  - If you want to write Typescript, you need `npm`
-  - If you want to write Golang, you will need `go`
-  - etc.
+- クリップボードツール（プラットフォームに応じてxclip/xsel/win32yankなど）
+- [Nerd Font](https://www.nerdfonts.com/)：オプション、様々なアイコンを提供
+  - インストールした場合は `init.lua` で `vim.g.have_nerd_font` を true に設定
+- 言語設定：
+  - Typescriptを書く場合は `npm` が必要
+  - Golangを書く場合は `go` が必要
+  - など
 
-> **NOTE**
-> See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
-> and quick install snippets
+> **注意**
+> WindowsとLinux特有の注意事項とクイックインストールスニペットについては、[インストールレシピ](#Install-Recipes)を参照してください
 
-### Install Kickstart
+### Kickstartのインストール
 
-> **NOTE**
-> [Backup](#FAQ) your previous configuration (if any exists)
+> **注意**
+> 既存の設定がある場合は、事前に[バックアップ](#FAQ)を取ってください
 
-Neovim's configurations are located under the following paths, depending on your OS:
+NeovimのOS別設定パス：
 
-| OS | PATH |
+| OS | パス |
 | :- | :--- |
 | Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
 | Windows (cmd)| `%localappdata%\nvim\` |
 | Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
 
-#### Recommended Step
+#### 推奨手順
 
-[Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repo
-so that you have your own copy that you can modify, then install by cloning the
-fork to your machine using one of the commands below, depending on your OS.
+このリポジトリを[フォーク](https://docs.github.com/en/get-started/quickstart/fork-a-repo)して、
+自分が変更できるコピーを作成し、OSに応じて以下のコマンドのいずれかを使用してフォークをマシンにクローンしてインストールします。
 
-> **NOTE**
-> Your fork's url will be something like this:
+> **注意**
+> フォークのURLは以下のようになります：
 > `https://github.com/<your_github_username>/kickstart.nvim.git`
 
-You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
-too - it's ignored in the kickstart repo to make maintenance easier, but it's
-[recommmended to track it in version control](https://lazy.folke.io/usage/lockfile).
+フォークの `.gitignore` ファイルから `lazy-lock.json` を削除することをお勧めします。
+kickstartリポジトリではメンテナンスを簡単にするために無視していますが、
+[バージョン管理で追跡することが推奨されています](https://lazy.folke.io/usage/lockfile)。
 
-#### Clone kickstart.nvim
-> **NOTE**
-> If following the recommended step above (i.e., forking the repo), replace
-> `nvim-lua` with `<your_github_username>` in the commands below
+#### kickstart.nvimのクローン
+> **注意**
+> 上記の推奨手順（リポジトリのフォーク）に従う場合は、
+> 以下のコマンドで `nvim-lua` を `<your_github_username>` に置き換えてください
 
-<details><summary> Linux and Mac </summary>
+<details><summary> Linux と Mac </summary>
 
 ```sh
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
@@ -78,13 +76,13 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HO
 
 <details><summary> Windows </summary>
 
-If you're using `cmd.exe`:
+`cmd.exe` を使用している場合：
 
 ```
 git clone https://github.com/nvim-lua/kickstart.nvim.git "%localappdata%\nvim"
 ```
 
-If you're using `powershell.exe`
+`powershell.exe` を使用している場合：
 
 ```
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nvim"
@@ -92,90 +90,88 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nv
 
 </details>
 
-### Post Installation
+### インストール後の設定
 
-Start Neovim
+Neovimを起動：
 
 ```sh
 nvim
 ```
 
-That's it! Lazy will install all the plugins you have. Use `:Lazy` to view
-current plugin status. Hit `q` to close the window.
+以上です！Lazyがすべてのプラグインをインストールします。`:Lazy` で現在の
+プラグインステータスを表示できます。`q` でウィンドウを閉じます。
 
-Read through the `init.lua` file in your configuration folder for more
-information about extending and exploring Neovim. That also includes
-examples of adding popularly requested plugins.
+Neovimの拡張と探索について詳しくは、設定フォルダ内の `init.lua` ファイルを
+読んでください。よく要求されるプラグインの追加例も含まれています。
 
 
-### Getting Started
+### はじめ方
 
-[The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
+[Neovimを始めるために必要な唯一のビデオ](https://youtu.be/m8C0Cq9Uv9o)
 
-### FAQ
+### よくある質問（FAQ）
 
-* What should I do if I already have a pre-existing neovim configuration?
-  * You should back it up and then delete all associated files.
-  * This includes your existing init.lua and the neovim files in `~/.local`
-    which can be deleted with `rm -rf ~/.local/share/nvim/`
-* Can I keep my existing configuration in parallel to kickstart?
-  * Yes! You can use [NVIM_APPNAME](https://neovim.io/doc/user/starting.html#%24NVIM_APPNAME)`=nvim-NAME`
-    to maintain multiple configurations. For example, you can install the kickstart
-    configuration in `~/.config/nvim-kickstart` and create an alias:
+* 既存のNeovim設定がある場合はどうすればよいですか？
+  * バックアップを取ってから、関連するすべてのファイルを削除してください。
+  * これには既存の init.lua と `~/.local` 内のneovimファイルが含まれ、
+    `rm -rf ~/.local/share/nvim/` で削除できます
+* kickstartと並行して既存の設定を保持できますか？
+  * はい！[NVIM_APPNAME](https://neovim.io/doc/user/starting.html#%24NVIM_APPNAME)`=nvim-NAME`
+    を使用して複数の設定を維持できます。例えば、kickstart設定を `~/.config/nvim-kickstart` に
+    インストールしてエイリアスを作成できます：
     ```
     alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
     ```
-    When you run Neovim using `nvim-kickstart` alias it will use the alternative
-    config directory and the matching local directory
-    `~/.local/share/nvim-kickstart`. You can apply this approach to any Neovim
-    distribution that you would like to try out.
-* What if I want to "uninstall" this configuration:
-  * See [lazy.nvim uninstall](https://github.com/folke/lazy.nvim#-uninstalling) information
-* Why is the kickstart `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
-  * The main purpose of kickstart is to serve as a teaching tool and a reference
-    configuration that someone can easily use to `git clone` as a basis for their own.
-    As you progress in learning Neovim and Lua, you might consider splitting `init.lua`
-    into smaller parts. A fork of kickstart that does this while maintaining the 
-    same functionality is available here:
+    `nvim-kickstart` エイリアスを使用してNeovimを実行すると、代替設定ディレクトリと
+    対応するローカルディレクトリ `~/.local/share/nvim-kickstart` が使用されます。
+    この方法は試したいNeovimディストリビューションに適用できます。
+* この設定を「アンインストール」したい場合は？
+  * [lazy.nvim uninstall](https://github.com/folke/lazy.nvim#-uninstalling)の情報を参照してください
+* なぜkickstartの `init.lua` は単一ファイルなのですか？複数ファイルに分割する方が良いのでは？
+  * kickstartの主な目的は、学習ツールおよび誰でも簡単に `git clone` して
+    自分のベースとして使用できる参考設定として機能することです。
+    NeovimとLuaの学習が進むにつれて、`init.lua` を小さな部分に分割することを
+    検討するかもしれません。同じ機能を維持しながらこれを行うkickstartのフォークが
+    こちらで利用できます：
     * [kickstart-modular.nvim](https://github.com/dam9000/kickstart-modular.nvim)
-  * Discussions on this topic can be found here:
-    * [Restructure the configuration](https://github.com/nvim-lua/kickstart.nvim/issues/218)
-    * [Reorganize init.lua into a multi-file setup](https://github.com/nvim-lua/kickstart.nvim/pull/473)
+  * このトピックに関する議論はこちらで見つけることができます：
+    * [設定の再構築](https://github.com/nvim-lua/kickstart.nvim/issues/218)
+    * [init.luaをマルチファイル設定に再編成](https://github.com/nvim-lua/kickstart.nvim/pull/473)
 
-### Install Recipes
+### インストールレシピ
 
-Below you can find OS specific install instructions for Neovim and dependencies.
+以下では、Neovimと依存関係のOS固有のインストール手順を確認できます。
 
-After installing all the dependencies continue with the [Install Kickstart](#Install-Kickstart) step.
+すべての依存関係をインストールした後、[Kickstartのインストール](#Install-Kickstart)ステップに進んでください。
 
-#### Windows Installation
+#### Windows インストール
 
-<details><summary>Windows with Microsoft C++ Build Tools and CMake</summary>
-Installation may require installing build tools and updating the run command for `telescope-fzf-native`
+<details><summary>Microsoft C++ Build ToolsとCMakeを使用するWindows</summary>
+インストールにはビルドツールのインストールと `telescope-fzf-native` の実行コマンドの更新が必要な場合があります
 
-See `telescope-fzf-native` documentation for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
+詳細については `telescope-fzf-native` のドキュメント[こちら](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)を参照してください
 
-This requires:
+これには以下が必要です：
 
-- Install CMake and the Microsoft C++ Build Tools on Windows
+- WindowsにCMakeとMicrosoft C++ Build Toolsをインストール
 
 ```lua
 {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 ```
 </details>
-<details><summary>Windows with gcc/make using chocolatey</summary>
-Alternatively, one can install gcc and make which don't require changing the config,
-the easiest way is to use choco:
+<details><summary>chocolateyを使用してgcc/makeを使用するWindows</summary>
+または、設定の変更を必要としないgccとmakeをインストールできます。
+最も簡単な方法はchocoを使用することです：
 
-1. install [chocolatey](https://chocolatey.org/install)
-either follow the instructions on the page or use winget,
-run in cmd as **admin**:
+1. [chocolatey](https://chocolatey.org/install)をインストール
+   ページの指示に従うかwingetを使用し、
+   **管理者として**cmdで実行：
 ```
 winget install --accept-source-agreements chocolatey.chocolatey
 ```
 
-2. install all requirements using choco, exit previous cmd and
-open a new one so that choco path is set, and run in cmd as **admin**:
+2. chocoを使用してすべての要件をインストール。前のcmdを終了し、
+   chocoのパスが設定されるように新しいものを開き、**管理者として**cmdで実行：
 ```
 choco install -y neovim git ripgrep wget fd unzip gzip mingw make
 ```
@@ -191,8 +187,8 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 ```
 </details>
 
-#### Linux Install
-<details><summary>Ubuntu Install Steps</summary>
+#### Linux インストール
+<details><summary>Ubuntu インストール手順</summary>
 
 ```
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
@@ -200,31 +196,31 @@ sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip neovim
 ```
 </details>
-<details><summary>Debian Install Steps</summary>
+<details><summary>Debian インストール手順</summary>
 
 ```
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip curl
 
-# Now we install nvim
+# nvimをインストール
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim-linux64
 sudo mkdir -p /opt/nvim-linux64
 sudo chmod a+rX /opt/nvim-linux64
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
 
-# make it available in /usr/local/bin, distro installs to /usr/bin
+# /usr/local/binで利用可能にする（ディストリビューションは/usr/binにインストール）
 sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/
 ```
 </details>
-<details><summary>Fedora Install Steps</summary>
+<details><summary>Fedora インストール手順</summary>
 
 ```
 sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
 ```
 </details>
 
-<details><summary>Arch Install Steps</summary>
+<details><summary>Arch インストール手順</summary>
 
 ```
 sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
